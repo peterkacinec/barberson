@@ -20,7 +20,7 @@ class ProviderFactory extends Factory
 //            'uuid' => $this->faker->uuid(),
             'name' => $this->faker->firstName(),
             'surname' => $this->faker->lastName(),
-            'birthday' => $this->faker->date('Y-m-d'),
+            'birthdate' => $this->faker->date('Y-m-d'),
             'email' => $this->faker->email,
             'phone' => $this->faker->phoneNumber,
             'gender' => $this->faker->randomElement(['M', 'F']),

@@ -11,22 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('working_days', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('surname');
-            $table->date('birthdate');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('gender')->nullable();
-            $table->string('photo')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('provider_id');
+            $table->enum('day',['Mo', 'Tu', 'W', 'Th', 'F', 'Sa', 'So']);
+            $table->string('from');
+            $table->string('to');
+            $table->string('available');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('user_id')
+            $table->foreign('provider_id')
                 ->references('id')
-                ->on('users');
+                ->on('providers');
 //                ->onDelete('cascade');
         });
     }
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('working_days');
     }
 };
