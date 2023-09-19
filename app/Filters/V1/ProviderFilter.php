@@ -9,7 +9,7 @@ class ProviderFilter extends ApiFilter
     protected $allowedParams = [
         'name' => ['eq'],
         'surname' => ['eq'],
-        'birthday' => ['eq', 'lt', 'lte', 'gt', 'gte'],
+        'birthdate' => ['eq', 'lt', 'lte', 'gt', 'gte'],
         'email' => ['eq'],
         'phone' => ['eq'],
         'gender' => ['eq'],

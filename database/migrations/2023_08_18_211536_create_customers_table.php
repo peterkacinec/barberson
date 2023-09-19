@@ -15,13 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
-            $table->date('birthday');
+            $table->date('birthdate');
             $table->string('email');
             $table->string('phone');
             $table->string('gender')->nullable();
             $table->string('photo')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
+//                ->onDelete('cascade');
         });
     }
 

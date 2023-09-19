@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name'); // todo potrebujem toto?
             $table->date('date');
-            $table->float('price');
+            $table->float('price'); // todo potrebujem toto, alebo staci mat iba na polozkach a tu pocitat SUM
 //            $table->string('currency'); TODO
             $table->string('status');
             $table->string('payment_type');
