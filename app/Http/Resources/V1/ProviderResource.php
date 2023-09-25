@@ -22,8 +22,15 @@ class ProviderResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'gender' => $this->gender,
-            'photo' => $this->photo,
-            'description' => $this->description
+            'profilePhoto' => $this->photo,
+            'description' => $this->description,
+            'service' => 'todo',
+            'comments' => 'todo',
+            'location' => 'todo',
+            'workingDays' => 'todo',
+            'availableTimes' => 'todo',
+            'rating' => 'todo',
+            'priceStarter' => 'todo'
         ];
     }
 }

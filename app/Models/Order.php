@@ -9,6 +9,17 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', //todo potrebujem?
+        'date',
+        'price', //todo potrebujem?
+        'status', // enum konkretnych moznosti pending, completed, cancelled, refunded
+        'payment_type',
+        'provider_id',
+        'customer_id',
+        'customer_address',
+    ];
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);

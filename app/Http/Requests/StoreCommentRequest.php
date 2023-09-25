@@ -11,7 +11,7 @@ class StoreCommentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class StoreCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'text' => 'required',
+            'rating' => 'required|integer|between:1,5',
+            'providerId' => 'required|numeric',
+            'customerId' => 'required|numeric',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'provider_id' => $this->providerId,
+            'customer_id' => $this->customerId,
+        ]);
     }
 }

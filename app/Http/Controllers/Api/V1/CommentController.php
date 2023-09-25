@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCommentRequest;
-use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Requests\UpdateOrderRequest;
+use App\Http\Resources\V1\CommentCollection;
+use App\Http\Resources\V1\CommentResource;
 use App\Models\Comment;
+use App\Models\Order;
 
 class CommentController extends Controller
 {
@@ -13,15 +17,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return new CommentCollection(Comment::all());
     }
 
     /**
@@ -29,21 +25,13 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        return new CommentResource(Comment::create($request->all()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
+    public function show(Order $order)
     {
         //
     }
@@ -51,7 +39,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
         //
     }
@@ -59,7 +47,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Order $order)
     {
         //
     }

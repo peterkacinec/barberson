@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\CustomerController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProviderController;
+use App\Http\Controllers\Api\V1\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +27,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('customers', CustomerController::class);
     Route::apiResource('providers', ProviderController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('comments', CommentController::class);
+    Route::apiResource('services', ServiceController::class);
 });

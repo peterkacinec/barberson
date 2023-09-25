@@ -28,7 +28,6 @@ class ProviderController extends Controller
 
             return new ProviderListCollection($customers->appends($request->query()));
         }
-
     }
 
     /**

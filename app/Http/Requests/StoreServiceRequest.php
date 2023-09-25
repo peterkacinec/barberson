@@ -22,7 +22,18 @@ class StoreServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'description' => 'nullable',
+            'price' => 'required|numeric',
+            'duration' => 'required|numeric',
+            'providerId' => 'required|numeric',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'provider_id' => $this->providerId,
+        ]);
     }
 }

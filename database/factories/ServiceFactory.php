@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Provider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,8 +20,9 @@ class ServiceFactory extends Factory
         return [
             'name' => $this->faker->title,
             'description' => $this->faker->realText,
-            'price' => $this->faker->randomNumber(),
-            'duration' => $this->faker->time,
+            'price' => $this->faker->randomFloat('2','0','1000'),
+            'duration' => $this->faker->randomElement([30,45,60,90]),
+            'provider_id' => Provider::factory(),
         ];
     }
 }

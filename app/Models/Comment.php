@@ -9,6 +9,13 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'text',
+        'rating',
+        'customer_id',
+        'provider_id',
+    ];
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);

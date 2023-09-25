@@ -18,8 +18,14 @@ return new class extends Migration
             $table->float('price');
 //            $table->string('currency'); TODO
             $table->integer('duration');
+            $table->unsignedBigInteger('provider_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('provider_id')
+                ->references('id')
+                ->on('providers');
+//                ->onDelete('cascade');
         });
     }
 
