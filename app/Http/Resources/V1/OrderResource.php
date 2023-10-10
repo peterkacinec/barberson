@@ -21,6 +21,7 @@ class OrderResource extends JsonResource
             'totalPrice' => $this->price,
             'status' => $this->status,
             'selectedServices' => OrderItemResource::collection($this->orderItems),
+//            'selectedServices' => OrderItemResource::collection($this->whenLoaded('orderItems')), //todo
             'paymentType' => $this->payment_type,
             'location' => $this->customer_address,
         ];
