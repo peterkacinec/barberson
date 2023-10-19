@@ -12,6 +12,6 @@ class ServiceSaveController extends Controller
 {
     public function __invoke(StoreServiceRequest $request): JsonResource
     {
-        return new ServiceResource(Service::create($request->all()));
+        return new ServiceResource(Service::create($request->validated()));
     }
 }

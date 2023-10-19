@@ -11,7 +11,7 @@ class StoreServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class StoreServiceRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'provider_id' => $this->providerId,

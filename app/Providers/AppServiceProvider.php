@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
         Model::preventLazyLoading(! app()->isProduction());
 
         Model::shouldBeStrict(
-        // It will only be enabled outside of production, though.
+//         It will only be enabled outside of production, though.
             ! app()->isProduction()
         );
     }

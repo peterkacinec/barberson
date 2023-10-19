@@ -12,6 +12,6 @@ class OrderSaveController extends Controller
 {
     public function __invoke(StoreOrderRequest $request): JsonResource
     {
-        return new OrderResource(Order::create($request->all()));
+        return new OrderResource(Order::create($request->validated()));
     }
 }
