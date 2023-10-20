@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filters\V1;
 
 use App\Filters\ApiFilter;
 
 class ProviderFilter extends ApiFilter
 {
-    protected $allowedParams = [
+    protected array $allowedParams = [
         'name' => ['eq'],
         'surname' => ['eq'],
         'birthdate' => ['eq', 'lt', 'lte', 'gt', 'gte'],
@@ -16,7 +18,7 @@ class ProviderFilter extends ApiFilter
         'description' => ['eq'],
     ];
 
-    protected $columnMap = [
+    protected array $columnMap = [
         'createdAt' => 'created_at',
         'updatedAt' => 'updated_at',
     ];

@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filters;
 
 use Illuminate\Http\Request;
 
 class ApiFilter
 {
-    protected $allowedParams = [];
+    protected array $allowedParams = [];
+    protected array $columnMap = [];
 
-    protected $columnMap = [];
-
-    protected $operatorMap = [
+    protected array $operatorMap = [
         'eq' => '=',
         'ne' => '!=',
         'lt' => '<',
@@ -19,7 +20,7 @@ class ApiFilter
         'gte' => '≥',
     ];
 
-    public function transform(Request $request)
+    public function transform(Request $request): array
     {
         $eloQuery = [];
 
