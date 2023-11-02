@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Common\Infrastructure\OpenApi\OpenApiValidator;
+use App\Common\Infrastructure\OpenApi\OpenApiValidatorInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app
+            ->when(OpenApiValidator::class)
+            ->needs('$pathToOpenApiSpec')
+            ->give('../doc/api.yaml');
+
+        $this->app->bind(OpenApiValidatorInterface::class, OpenApiValidator::class);
     }
 
     /**

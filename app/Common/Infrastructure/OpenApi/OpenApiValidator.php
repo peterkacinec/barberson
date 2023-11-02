@@ -21,16 +21,15 @@ class OpenApiValidator implements OpenApiValidatorInterface
 
     private PsrHttpFactory $psrHttpFactory;
     private ValidatorBuilder $validatorBuilder;
-    private string $yamlFile = '../doc/api.yaml'; // todo presunut do konfiguracie
 
     public function __construct(
-//        string $pathToOpenApiSpec,
+        private string $pathToOpenApiSpec,
 //        private LoggerInterface $logger, //todo rozbehat logger
     ) {
         $psr17Factory = new Psr17Factory();
         $this->psrHttpFactory = new PsrHttpFactory($psr17Factory, $psr17Factory, $psr17Factory, $psr17Factory);
 
-        $this->validatorBuilder = (new ValidatorBuilder())->fromYamlFile($this->yamlFile);
+        $this->validatorBuilder = (new ValidatorBuilder())->fromYamlFile($this->pathToOpenApiSpec);
     }
 
     public function validateRequest(Request $request): void
@@ -59,7 +58,7 @@ class OpenApiValidator implements OpenApiValidatorInterface
         $psrRequest = $this->toPsrRequest($request);
 
         try {
-            $validatorBuilder = (new ValidatorBuilder())->fromYamlFile($this->yamlFile);
+            $validatorBuilder = (new ValidatorBuilder())->fromYamlFile($this->pathToOpenApiSpec);
 
             $operation = new OperationAddress(
                 $psrRequest->getUri()->getPath(),
