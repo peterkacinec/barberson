@@ -10,7 +10,7 @@ use App\Http\Resources\V1\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentSaveController extends Controller
+class SaveCommentController extends Controller
 {
     public function __invoke(StoreCommentRequest $request): JsonResource
     {

@@ -23,10 +23,10 @@ class StoreOrderRequest extends FormRequest
             'date' => 'required|date_format:Y-m-d',
             'price' => 'required|numeric',
             'status' => 'required',
-            'paymentType' => 'required',
-            'providerId' => 'required|numeric',
-            'customerId' => 'required|numeric',
-            'customerAddress' => 'required',
+            'payment_type' => 'required',
+            'provider_id' => 'required|numeric',
+            'customer_id' => 'required|numeric',
+            'customer_address' => 'required',
         ];
     }
 

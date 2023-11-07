@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\CustomerUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,7 +27,7 @@ class ProviderFactory extends Factory
             'gender' => $this->faker->randomElement(['M', 'F']),
             'photo' => $this->faker->imageUrl,
             'description' => $this->faker->realText,
-            'user_id' => User::factory(),
+            'user_id' => CustomerUser::factory(),
         ];
     }
 }

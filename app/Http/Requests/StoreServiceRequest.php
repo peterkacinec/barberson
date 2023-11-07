@@ -23,7 +23,7 @@ class StoreServiceRequest extends FormRequest
             'description' => 'nullable',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
-            'providerId' => 'required|numeric',
+            'provider_id' => 'required|numeric',
         ];
     }
 

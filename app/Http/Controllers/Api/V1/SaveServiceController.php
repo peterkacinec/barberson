@@ -10,7 +10,7 @@ use App\Http\Resources\V1\ServiceResource;
 use App\Models\Service;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceSaveController extends Controller
+class SaveServiceController extends Controller
 {
     public function __invoke(StoreServiceRequest $request): JsonResource
     {

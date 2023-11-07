@@ -10,7 +10,7 @@ use App\Http\Resources\V1\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderSaveController extends Controller
+class SaveOrderController extends Controller
 {
     public function __invoke(StoreOrderRequest $request): JsonResource
     {
