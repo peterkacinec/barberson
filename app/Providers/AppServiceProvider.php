@@ -19,9 +19,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app
             ->when(OpenApiValidator::class)
             ->needs('$pathToOpenApiSpec')
-            ->give('../doc/api.yaml');
+            ->give('../storage/api/api.yaml');
 
         $this->app->bind(OpenApiValidatorInterface::class, OpenApiValidator::class);
+
+        $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
     }
 
     /**

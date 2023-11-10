@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+    title: Barberson API
+    description: API endpoints
+    version: 1.0.0
+servers:
+    -   url: 'https://barberson.local/'
+        description: Local server
+#    -   url: 'https://barberson.local/'
+#        description: Test server
+#security:
+#    - ApiKeyAuth: []
+paths:
+    /api/v1/comments:
+      post:
+        description: Create comment
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [text, rating, customerId, providerId]
+                properties:
+                  text:
+                    type: string
+                  rating:
+                    type: integer
+                  customerId:
+                    type: integer
+                  providerId:
+                    type: integer
+        responses:
+          201:
+            description: Comment was successfully stored
+          401:
+            description: Unauthorised access
+
+    /api/v1/orders:
+      post:
+        description: Create order
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+                  time:
+                    type: string
+                    pattern: '^\d{2}:\d{2}$'
+                  price:
+                    type: string
+                  #promoCode:
+                   # type: string
+                  status:
+                    type: string
+                  paymentType:
+                    type: string
+                  customerId:
+                    type: integer
+                  providerId:
+                    type: integer
+                  customerAddress:
+                    type: string
+        responses:
+          201:
+            description: Order was successfully stored
+          401:
+            description: Unauthorised access

@@ -6,14 +6,19 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
-use App\Http\Resources\V1\OrderResource;
-use App\Models\Order;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Services\SaveOrderService;
+use Illuminate\Http\JsonResponse;
 
 class SaveOrderController extends Controller
 {
-    public function __invoke(StoreOrderRequest $request): JsonResource
+    public function __construct(private SaveOrderService $saveOrderService)
     {
-        return new OrderResource(Order::create($request->validated()));
+    }
+
+    public function __invoke(StoreOrderRequest $request): JsonResponse
+    {
+        $this->saveOrderService->__invoke($request->validated());
+
+        return new JsonResponse();
     }
 }

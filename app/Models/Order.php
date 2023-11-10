@@ -16,7 +16,9 @@ class Order extends Model
     protected $fillable = [
         'name', //todo potrebujem?
         'date',
+        'time',
         'price', //todo potrebujem?
+//        'promoCode',
         'status', // enum konkretnych moznosti pending, completed, cancelled, refunded
         'payment_type',
         'provider_id',

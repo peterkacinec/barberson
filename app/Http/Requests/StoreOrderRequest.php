@@ -21,7 +21,9 @@ class StoreOrderRequest extends FormRequest
         return [
             'name' => 'required',
             'date' => 'required|date_format:Y-m-d',
+            'time' => 'required|date_format:H:i',
             'price' => 'required|numeric',
+//            'promoCode' => 'nullable',
             'status' => 'required',
             'payment_type' => 'required',
             'provider_id' => 'required|numeric',
