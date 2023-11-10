@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCustomerRequest extends FormRequest
+class SaveCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,18 +19,18 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required',
-            'surname' => 'required',
-            'birthdate' => 'required|date',
-            'email' => 'email:dns',
-            'password' => ['required','confirmed'],
+            'text' => 'required',
+            'rating' => 'required|integer|between:1,5',
+            'provider_id' => 'required|numeric',
+            'customer_id' => 'required|numeric',
         ];
     }
 
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'first_name' => $this->name,
+            'provider_id' => $this->providerId,
+            'customer_id' => $this->customerId,
         ]);
     }
 }

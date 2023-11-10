@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreWorkingDayRequest;
+use App\Http\Requests\SaveWorkingDayRequest;
 
 class WorkingDayController extends Controller
 {
@@ -28,7 +28,7 @@ class WorkingDayController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWorkingDayRequest $request)
+    public function store(SaveWorkingDayRequest $request)
     {
         //
     }

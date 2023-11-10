@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\SaveOrderRequest;
 use App\Services\SaveOrderService;
 use Illuminate\Http\JsonResponse;
 
@@ -15,7 +15,7 @@ class SaveOrderController extends Controller
     {
     }
 
-    public function __invoke(StoreOrderRequest $request): JsonResponse
+    public function __invoke(SaveOrderRequest $request): JsonResponse
     {
         $this->saveOrderService->__invoke($request->validated());
 
