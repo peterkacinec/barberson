@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Common\Infrastructure\OpenApi\OpenApiValidatorInterface;
+use App\Common\Application\OpenApiValidatorInterface;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

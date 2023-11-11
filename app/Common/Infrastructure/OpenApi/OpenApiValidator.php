@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\OpenApi;
 
+use App\Common\Application\OpenApiValidatorInterface;
 use League\OpenAPIValidation\PSR7\Exception\NoOperation;
 use League\OpenAPIValidation\PSR7\Exception\ValidationFailed;
 use League\OpenAPIValidation\PSR7\OperationAddress;

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Common\Application\OpenApiValidatorInterface;
+use App\Common\Application\TransactionServiceInterface;
+use App\Common\Infrastructure\Eloquent\Transaction\TransactionService;
 use App\Common\Infrastructure\OpenApi\OpenApiValidator;
-use App\Common\Infrastructure\OpenApi\OpenApiValidatorInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use L5Swagger\L5SwaggerServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,8 +25,9 @@ class AppServiceProvider extends ServiceProvider
             ->give('../storage/api/api.yaml');
 
         $this->app->bind(OpenApiValidatorInterface::class, OpenApiValidator::class);
+        $this->app->bind(TransactionServiceInterface::class, TransactionService::class);
 
-        $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
+        $this->app->register(L5SwaggerServiceProvider::class);
     }
 
     /**

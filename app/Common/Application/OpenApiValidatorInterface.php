@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Infrastructure\OpenApi;
+namespace App\Common\Application;
 
+use App\Common\Infrastructure\OpenApi\OpenApiValidatorException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
