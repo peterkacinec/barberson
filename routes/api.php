@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\RegistrationController;
 use App\Http\Controllers\Api\V1\CommentListController;
 use App\Http\Controllers\Api\V1\SaveCommentController;
 use App\Http\Controllers\Api\V1\CustomerListController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\Api\V1\ProviderDetailController;
 use App\Http\Controllers\Api\V1\ProviderListController;
 use App\Http\Controllers\Api\V1\ServiceListController;
 use App\Http\Controllers\Api\V1\SaveServiceController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,13 +28,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
     Route::post('comments', SaveCommentController::class)->name('comment.save');
-    Route::get('/comments', CommentListController::class)->name('comment.list');
+    Route::get('/comments', CommentListController::class)->name('comment.list')->middleware('auth:sanctum');
     Route::post('/customers', SaveCustomerController::class)->name('customer.save');
     Route::get('/customers', CustomerListController::class)->name('customer.list');
     Route::get('/providers', ProviderListController::class)->name('provider.list');
@@ -44,3 +41,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('/services', SaveServiceController::class)->name('service.save');
     Route::get('/services', ServiceListController::class)->name('service.list');
 });
+
+
+Route::post('/auth/register', RegistrationController::class);
+Route::post('/auth/login', LoginController::class);

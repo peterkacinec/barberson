@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveCustomerRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,21 +16,16 @@ class SaveCustomerRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
     public function rules(): array
     {
         return [
-            'first_name' => 'required',
-            'surname' => 'required',
-            'birthdate' => 'required|date',
             'email' => 'email:dns',
-            'password' => ['required','confirmed'],
+            'password' => 'required',
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'first_name' => $this->name,
-        ]);
     }
 }
