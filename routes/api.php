@@ -30,8 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
     Route::post('comments', SaveCommentController::class)->name('comment.save');
-    Route::get('/comments', CommentListController::class)->name('comment.list')->middleware('auth:sanctum');
-    Route::post('/customers', SaveCustomerController::class)->name('customer.save');
+    Route::get('/comments', CommentListController::class)->name('comment.list');
     Route::get('/customers', CustomerListController::class)->name('customer.list');
     Route::get('/providers', ProviderListController::class)->name('provider.list');
     Route::get('/providers/{provider}', ProviderDetailController::class)->name('provider.detail');
@@ -40,7 +39,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('/orders', SaveOrderController::class)->name('order.save');
     Route::post('/services', SaveServiceController::class)->name('service.save');
     Route::get('/services', ServiceListController::class)->name('service.list');
-});
+})->middleware('auth:sanctum');
 
 
 Route::post('/auth/register', RegistrationController::class);
