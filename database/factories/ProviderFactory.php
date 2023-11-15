@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use App\Models\CustomerUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,15 +20,10 @@ class ProviderFactory extends Factory
     {
         return [
 //            'uuid' => $this->faker->uuid(),
-            'name' => $this->faker->firstName(),
-            'surname' => $this->faker->lastName(),
-            'birthdate' => $this->faker->date('Y-m-d'),
-            'email' => $this->faker->email,
-            'phone' => $this->faker->phoneNumber,
-            'gender' => $this->faker->randomElement(['M', 'F']),
-            'photo' => $this->faker->imageUrl,
+            'state' => $this->faker->randomElement(['new', 'todo']),
+//            'photo' => $this->faker->imageUrl,
             'description' => $this->faker->realText,
-            'user_id' => CustomerUser::factory(),
+            'company_id' => Company::factory(),
         ];
     }
 }

@@ -19,14 +19,10 @@ class CustomerFactory extends Factory
     {
         return [
 //            'id' => $this->faker->id(),
-            'name' => $this->faker->firstName(),
-            'surname' => $this->faker->lastName(),
-            'birthdate' => $this->faker->date('Y-m-d'),
-            'email' => $this->faker->email,
-            'phone' => $this->faker->phoneNumber,
-            'gender' => $this->faker->randomElement(['M', 'F']),
+            'state' => $this->faker->randomElement(['new', 'todo']),
             'photo' => $this->faker->imageUrl,
-            'user_id' => CustomerUser::factory(),
+            'c_user_id' => CustomerUser::factory(),
+            'company_id' => null,
         ];
     }
 }
