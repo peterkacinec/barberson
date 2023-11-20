@@ -21,12 +21,12 @@ class CustomerResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'surname' => $this->surname,
-            'birthdate' => $this->birthdate,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'gender' => $this->gender,
+            'name' => $this->user->first_name,
+            'surname' => $this->user->surname,
+            'birthdate' => $this->user->birthdate,
+            'email' => $this->user->email,
+            'phone' => $this->user->phone,
+            'state' => $this->state,
             'photo' => $this->photo,
         ];
     }

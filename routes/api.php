@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegistrationController;
 use App\Http\Controllers\Api\V1\CommentListController;
 use App\Http\Controllers\Api\V1\SaveCommentController;
 use App\Http\Controllers\Api\V1\CustomerListController;
-use App\Http\Controllers\Api\V1\SaveCustomerController;
 use App\Http\Controllers\Api\V1\OrderDetailController;
 use App\Http\Controllers\Api\V1\OrderListController;
 use App\Http\Controllers\Api\V1\SaveOrderController;
@@ -28,8 +28,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
-    Route::post('comments', SaveCommentController::class)->name('comment.save');
+Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'middleware' => 'auth:sanctum'], function() {
+    Route::post('/comments', SaveCommentController::class)->name('comment.save');
     Route::get('/comments', CommentListController::class)->name('comment.list');
     Route::get('/customers', CustomerListController::class)->name('customer.list');
     Route::get('/providers', ProviderListController::class)->name('provider.list');
@@ -39,8 +39,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('/orders', SaveOrderController::class)->name('order.save');
     Route::post('/services', SaveServiceController::class)->name('service.save');
     Route::get('/services', ServiceListController::class)->name('service.list');
-})->middleware('auth:sanctum');
+});
 
-
-Route::post('/auth/register', RegistrationController::class);
-Route::post('/auth/login', LoginController::class);
+Route::get('/logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
+Route::post('/auth/register', RegistrationController::class)->name('user.register');
+Route::post('/auth/login', LoginController::class)->name('user.login');

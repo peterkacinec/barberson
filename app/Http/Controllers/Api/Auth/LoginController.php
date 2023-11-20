@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\CustomerUser;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class LoginController extends Controller
 {
@@ -31,7 +32,7 @@ class LoginController extends Controller
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
 
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()

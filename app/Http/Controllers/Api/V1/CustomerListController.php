@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CustomerCollection;
 use App\Models\Customer;
 use App\Filters\V1\CustomerFilter;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +20,7 @@ class CustomerListController extends Controller
         $queryItems = $filter->transform($request);
 
         if ($queryItems === []) {
-            return new CustomerCollection(Customer::all());
+            return new CustomerCollection(Customer::with('user')->get());
         } else {
             $customers = Customer::where($queryItems)->paginate();
 
