@@ -21,7 +21,7 @@ class SaveOrderRequest extends FormRequest
         return [
             'name' => 'required',
             'date' => 'required|date_format:Y-m-d',
-            'time' => 'required|date_format:H:i',
+//            'time' => 'required|date_format:H:i',
             'price' => 'required|numeric',
 //            'promoCode' => 'nullable',
             'status' => 'required',
@@ -29,6 +29,7 @@ class SaveOrderRequest extends FormRequest
             'provider_id' => 'required|numeric',
             'customer_id' => 'required|numeric',
             'customer_address' => 'required',
+//            'selected_services' => 'array'
         ];
     }
 
@@ -39,6 +40,7 @@ class SaveOrderRequest extends FormRequest
             'provider_id' => $this->providerId,
             'customer_id' => $this->customerId,
             'customer_address' => $this->customerAddress,
+//            'selected_services' => $this->selectedServices,
         ]);
     }
 }

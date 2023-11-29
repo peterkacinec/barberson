@@ -19,6 +19,6 @@ class SaveOrderController extends Controller
     {
         $this->saveOrderService->__invoke($request->validated());
 
-        return new JsonResponse();
+        return new JsonResponse(true);
     }
 }

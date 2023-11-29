@@ -85,7 +85,6 @@ class OpenApiValidator implements OpenApiValidatorInterface
 
             throw new OpenAPIValidatorException($validationFailedMessage, $exception);
         }
-
     }
 
     private function validatePsrRequest(ServerRequestInterface $serverRequest): void

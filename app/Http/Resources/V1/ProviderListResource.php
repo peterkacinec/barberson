@@ -18,8 +18,10 @@ class ProviderListResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'surname' => $this->surname,
+            'name' => $this->company->title,
+            'ico' => $this->company->ico,
+            'vat' => $this->company->vat,
+            'iban' => $this->company->iban,
             'description' => $this->description
         ];
     }
