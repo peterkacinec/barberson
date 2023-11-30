@@ -4,39 +4,42 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Common\Infrastructure\Log\Context;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\CustomerUser;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Throwable;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
-    public function __invoke(LoginRequest $request)
+    public function __invoke(LoginRequest $request): JsonResponse
     {
         try {
-            $request->validated();
-
-            if(!Auth::attempt($request->only(['email', 'password']))){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401);
+            if(!Auth::attempt($request->validated())){
+                return new JsonResponse(false, Response::HTTP_UNAUTHORIZED);
             }
 
-            $user = CustomerUser::where('email', $request->email)->first();
+            $customerUser = CustomerUser::where('email', $request->email)->first();
 
-            return response()->json([
+            return new JsonResponse([
                 'status' => true,
-                'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
+                'token' => $customerUser->createToken(CustomerUser::ACCESS_TOKEN_NAME)->plainTextToken
+            ], Response::HTTP_OK);
 
-        } catch (Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
+        } catch (Exception $exception) {
+            Log::error(
+                sprintf("Some error occurred while log in customer user, reason: %s", $exception->getMessage()),
+                [
+                    Context::MESSAGE_TYPE => self::class,
+                    Context::EXCEPTION => $exception,
+                ]
+            );
+
+            return new JsonResponse(false, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

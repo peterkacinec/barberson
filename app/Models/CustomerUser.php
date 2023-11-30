@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class CustomerUser extends Authenticatable
 {
+    public const ACCESS_TOKEN_NAME = "CUSTOMER_USER_TOKEN";
     protected $table = 'c_users';
 
     use HasApiTokens, HasFactory, Notifiable;

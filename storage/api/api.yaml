@@ -362,11 +362,13 @@ paths:
                             format: email
                           phone:
                             type: string
+                            nullable: true
                           state:
                             type: string
                           photo:
                             type: string
                             format: uri
+                            nullable: true
           401:
             description: Unauthorised access
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Common\Infrastructure\Log\Context;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +22,8 @@ class LogoutController extends Controller
             Log::error(
                 "Some error during the customer logout, reason: {$exception->getMessage()}",
                 [
-                    'message_type' => self::class
+                    Context::MESSAGE_TYPE => self::class,
+                    Context::EXCEPTION => $exception,
                 ]
             );
 
