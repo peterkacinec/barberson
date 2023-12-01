@@ -1,220 +1,288 @@
 openapi: 3.1.0
 info:
-    title: Barberson API
-    description: API endpoints
-    version: 1.0.0
+  title: Barberson API
+  description: API endpoints
+  version: 1.0.0
 servers:
-    -   url: 'https://barberson.local/'
-        description: Local server
-#    -   url: 'https://barberson.local/'
-#        description: Test server
-security:
-    - bearerAuth: []
+  - url: 'https://barberson.local/'
+    description: Local server
+  - url: 'https://barberson.vymozete.sk/'
+    description: Test server
+#security:
+#  - bearerAuth: []
 paths:
-    /api/v1/comments:
-      get:
-        description: Get list of comments
-        responses:
-          200:
-            description: OK
+  /api/v1/comments:
+    get:
+      summary: Get list of comments
+      tags:
+        - public
+      responses:
+        200:
+          description: OK
 #            todo validacia response
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required: [ data ]
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ data ]
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
 #                        required: [ todo ]
-                        properties:
-                          id:
-                            type: integer
-                          text:
-                            type: string
-                          rating:
-                            type: integer
-                          customerId:
-                            type: integer
-                          providerId:
-                            type: integer
-          401:
-            description: Unauthorised access
-      post:
-        description: Create comment
-        requestBody:
-          required: true
+                      properties:
+                        id:
+                          type: integer
+                        text:
+                          type: string
+                        rating:
+                          type: integer
+                        customerId:
+                          type: integer
+                        providerId:
+                          type: integer
+        401:
+          description: Unauthorised access
+    post:
+      summary: Create comment
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text, rating, customerId, providerId]
+              properties:
+                text:
+                  type: string
+                rating:
+                  type: integer
+                customerId:
+                  type: integer
+                providerId:
+                  type: integer
+      responses:
+        201:
+          description: Comment was successfully created
+        401:
+          description: Unauthorised access
+
+  /api/v1/services:
+    post:
+      summary: Create service
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ name, price, duration, providerId ]
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+                price:
+                  type: integer
+                duration:
+                  type: integer
+                providerId:
+                  type: integer
+      responses:
+        201:
+          description: Service was successfully created
+        401:
+          description: Unauthorised access
+    get:
+      summary: List of services
+      tags:
+        - public
+      responses:
+        200:
+          description: OK
           content:
             application/json:
               schema:
                 type: object
-                required: [text, rating, customerId, providerId]
+                required: [ data ]
                 properties:
-                  text:
-                    type: string
-                  rating:
-                    type: integer
-                  customerId:
-                    type: integer
-                  providerId:
-                    type: integer
-        responses:
-          201:
-            description: Comment was successfully created
-          401:
-            description: Unauthorised access
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required: [ id, name, description, price, duration, providerId ]
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                          nullable: true
+                        price:
+                          type: number
+                          format: float
+                        duration:
+                          type: integer
+                        providerId:
+                          type: integer
+        401:
+          description: Unauthorised access
 
-    /api/v1/services:
-      post:
-        description: Create service
-        requestBody:
-          required: true
+  /api/v1/orders:
+    get:
+      summary: Get list of orders
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      responses:
+        200:
+          description: OK
           content:
             application/json:
               schema:
                 type: object
-                required: [ name, price, duration, providerId ]
+                required: [ data ]
                 properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                    nullable: true
-                  price:
-                    type: integer
-                  duration:
-                    type: integer
-                  providerId:
-                    type: integer
-        responses:
-          201:
-            description: Service was successfully created
-          401:
-            description: Unauthorised access
-      get:
-        description: List of services
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required: [ data ]
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        required: [ id, name, description, price, duration, providerId ]
-                        properties:
-                          id:
-                            type: integer
-                          name:
-                            type: string
-                          description:
-                            type: string
-                            nullable: true
-                          price:
-                            type: number
-                            format: float
-                          duration:
-                            type: integer
-                          providerId:
-                            type: integer
-          401:
-            description: Unauthorised access
-
-    /api/v1/orders:
-      get:
-        description: Get list of orders
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required: [ data ]
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        required: [ id, name, date, totalPrice, status, selectedServices ]
-                        properties:
-                          id:
-                            type: integer
-                          name:
-                            type: string
-                          date:
-                            type: string
-                            format: date
-                          totalPrice:
-                            type: number
-                            format: float
-                          status:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required: [ id, name, date, totalPrice, status, selectedServices ]
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        date:
+                          type: string
+                          format: date
+                        totalPrice:
+                          type: number
+                          format: float
+                        status:
 #                            enum
-                            type: string
-                          selectedServices:
-                            type: array
-                            items:
-                              type: object
-                              required: [ id, name, price ]
-                              properties:
-                                id:
-                                  type: integer
-                                name:
-                                  type: string
-                                price:
-                                  type: number
-                                  format: float
-                          paymentType:
-                            type: string
-                          location:
-                            type: string
-          401:
-            description: Unauthorised access
-      post:
-        description: Create order
-        requestBody:
-          required: true
+                          type: string
+                        selectedServices:
+                          type: array
+                          items:
+                            type: object
+                            required: [ id, name, price ]
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              price:
+                                type: number
+                                format: float
+                        paymentType:
+                          type: string
+                        location:
+                          type: string
+        401:
+          description: Unauthorised access
+    post:
+      summary: Create order
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, date, price, status, paymentType, customerId, providerId, customerAddress, selectedServices]
+              properties:
+                name:
+                  type: string
+                date:
+                  type: string
+                  format: date
+                time:
+                  type: string
+                  pattern: '^\d{2}:\d{2}$'
+                price:
+                  type: number
+                  format: float
+                #promoCode:
+                 # type: string
+                status:
+                  type: string
+                paymentType:
+                  type: string
+                customerId:
+                  type: integer
+                providerId:
+                  type: integer
+                customerAddress:
+                  type: string
+                selectedServices:
+                  type: array
+                  items:
+                    type: object
+                    required: [ id, title, price ]
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      price:
+                        type: number
+                        format: float
+      responses:
+        201:
+          description: Order was successfully created
+        401:
+          description: Unauthorised access
+
+  /api/v1/orders/{orderId}:
+    get:
+      summary: Get order detail
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      responses:
+        200:
+          description: OK
           content:
             application/json:
               schema:
                 type: object
-                required: [name, date, price, status, paymentType, customerId, providerId, customerAddress, selectedServices]
+                required: [ id, name, date, totalPrice, status, selectedServices ]
                 properties:
+                  id:
+                    type: integer
                   name:
                     type: string
                   date:
                     type: string
                     format: date
-                  time:
-                    type: string
-                    pattern: '^\d{2}:\d{2}$'
-                  price:
+                  totalPrice:
                     type: number
                     format: float
-                  #promoCode:
-                   # type: string
                   status:
-                    type: string
-                  paymentType:
-                    type: string
-                  customerId:
-                    type: integer
-                  providerId:
-                    type: integer
-                  customerAddress:
+                    #                            enum
                     type: string
                   selectedServices:
                     type: array
                     items:
                       type: object
-                      required: [ id, title, price ]
+                      required: [ id, name, price ]
                       properties:
                         id:
                           type: integer
@@ -223,212 +291,208 @@ paths:
                         price:
                           type: number
                           format: float
-        responses:
-          201:
-            description: Order was successfully created
-          401:
-            description: Unauthorised access
+                  paymentType:
+                    type: string
+                  location:
+                    type: string
+        401:
+          description: Unauthorised access
 
-    /api/v1/orders/{orderId}:
-      get:
-        description: Get order detail
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required: [ id, name, date, totalPrice, status, selectedServices ]
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    date:
-                      type: string
-                      format: date
-                    totalPrice:
-                      type: number
-                      format: float
-                    status:
-                      #                            enum
-                      type: string
-                    selectedServices:
-                      type: array
-                      items:
-                        type: object
-                        required: [ id, name, price ]
-                        properties:
-                          id:
-                            type: integer
-                          name:
-                            type: string
-                          price:
-                            type: number
-                            format: float
-                    paymentType:
-                      type: string
-                    location:
-                      type: string
-          401:
-            description: Unauthorised access
+  /api/auth/login:
+    post:
+      summary: User log-in
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ email, password ]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        201:
+          description: User logged in successfully
+        401:
+          description: Unauthorised access
 
-    /api/auth/login:
-      post:
-        description: User log-in
-        requestBody:
-          required: true
+  /api/auth/register:
+    post:
+      summary: User registration
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ name, password ]
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                birthdate:
+                  type: string
+                  format: date
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                password_confirmation:
+                  type: string
+                  format: password
+      responses:
+        201:
+          description: User registered successfully
+        401:
+          description: Unauthorised access
+
+  /api/v1/customers:
+    get:
+      summary: Get list of customers
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      responses:
+        200:
+          description: OK
+          #            todo validacia response
           content:
             application/json:
               schema:
                 type: object
-                required: [ email, password ]
+                required: [ data ]
                 properties:
-                  email:
-                    type: string
-                    format: email
-                  password:
-                    type: string
-                    format: password
-        responses:
-          201:
-            description: User logged in successfully
-          401:
-            description: Unauthorised access
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        surname:
+                          type: string
+                        birthdate:
+                          type: string
+                          format: date
+                        email:
+                          type: string
+                          format: email
+                        phone:
+                          type: string
+                          nullable: true
+                        state:
+                          type: string
+                        photo:
+                          type: string
+                          format: uri
+                          nullable: true
+        401:
+          description: Unauthorised access
 
-    /api/auth/register:
-      post:
-        description: User registration
-        requestBody:
-          required: true
+  /api/v1/providers:
+    get:
+      summary: Get list of providers
+      tags:
+        - public
+      responses:
+        200:
+          description: OK
           content:
             application/json:
               schema:
                 type: object
-                required: [ name, password ]
+                required: [ data ]
                 properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        ico:
+                          type: string
+                        vat:
+                          type: string
+                        iban:
+                          type: string
+                        description:
+                          type: string
+        401:
+          description: Unauthorised access
+
+  /api/v1/providers/{providerId}:
+    get:
+      summary: Get provider detail
+      tags:
+        - public
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ id, name, surname, description ]
+                properties:
+                  id:
+                    type: integer
                   name:
                     type: string
                   surname:
                     type: string
-                  birthdate:
+                  description:
                     type: string
-                    format: date
-                  email:
-                    type: string
-                    format: email
-                  password:
-                    type: string
-                    format: password
-                  password_confirmation:
-                    type: string
-                    format: password
-        responses:
-          201:
-            description: User registered successfully
-          401:
-            description: Unauthorised access
-
-    /api/v1/customers:
-      get:
-        description: Get list of customers
-        responses:
-          200:
-            description: OK
-            #            todo validacia response
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required: [ data ]
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          name:
-                            type: string
-                          surname:
-                            type: string
-                          birthdate:
-                            type: string
-                            format: date
-                          email:
-                            type: string
-                            format: email
-                          phone:
-                            type: string
-                            nullable: true
-                          state:
-                            type: string
-                          photo:
-                            type: string
-                            format: uri
-                            nullable: true
-          401:
-            description: Unauthorised access
-
-    /api/v1/providers:
-      get:
-        description: Get list of providers
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required: [ data ]
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          name:
-                            type: string
-                          ico:
-                            type: string
-                          vat:
-                            type: string
-                          iban:
-                            type: string
-                          description:
-                            type: string
-          401:
-            description: Unauthorised access
-
-    /api/v1/providers/{providerId}:
-      get:
-        description: Get provider detail
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required: [ id, name, surname, description ]
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    surname:
-                      type: string
-                    description:
-                      type: string
-          401:
-            description: Unauthorised access
+        401:
+          description: Unauthorised access
 
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+
+  schemas:
+    Error:
+      required:
+        - statusCode
+        - name
+        - description
+      properties:
+        statusCode:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        payload:
+          type: object
+          nullable: true
+          additionalProperties: true
+      additionalProperties: true
+
+  responses:
+    UnexpectedErrorResponse:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

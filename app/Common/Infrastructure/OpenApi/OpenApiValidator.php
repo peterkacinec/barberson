@@ -96,8 +96,12 @@ class OpenApiValidator implements OpenApiValidatorInterface
         } catch (ValidationFailed $exception) {
             $validationFailedMessage = $this->getOpenAPIValidatorExceptionMessage($exception);
 
-            // todo mozno len docasny workaround pre EP ktore nemaju dokumentaciu
+//             todo mozno len docasny workaround pre EP ktore nemaju dokumentaciu, ale routa je zadefinovana
 //            if ($exception instanceof NoOperation) {
+//                return;
+//            }
+            //todo pre zabezpecene EP, ale request posielam bez spravnej hlavicky
+//            if ($exception instanceof InvalidSecurity) {
 //                return;
 //            }
 

@@ -28,18 +28,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'middleware' => 'auth:sanctum'], function() {
-    Route::post('/comments', SaveCommentController::class)->name('comment.save');
-    Route::get('/comments', CommentListController::class)->name('comment.list');
+Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::post('/comments', SaveCommentController::class)->name('comment.save');
+        Route::get('/orders', OrderListController::class)->name('order.list');
+        Route::get('/orders/{order}', OrderDetailController::class)->name('order.detail');
+        Route::post('/orders', SaveOrderController::class)->name('order.save');
+        Route::post('/services', SaveServiceController::class)->name('service.save');
+    });
+
     Route::get('/customers', CustomerListController::class)->name('customer.list');
+    Route::get('/comments', CommentListController::class)->name('comment.list');
+    Route::get('/services', ServiceListController::class)->name('service.list');
     Route::get('/providers', ProviderListController::class)->name('provider.list');
     Route::get('/providers/{provider}', ProviderDetailController::class)->name('provider.detail');
-    Route::get('/orders', OrderListController::class)->name('order.list');
-    Route::get('/orders/{order}', OrderDetailController::class)->name('order.detail');
-    Route::post('/orders', SaveOrderController::class)->name('order.save');
-    Route::post('/services', SaveServiceController::class)->name('service.save');
-    Route::get('/services', ServiceListController::class)->name('service.list');
 });
+
 
 Route::get('/logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 Route::post('/auth/register', RegistrationController::class)->name('user.register');
