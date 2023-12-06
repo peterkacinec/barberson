@@ -38,10 +38,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     });
 
     Route::get('/customers', CustomerListController::class)->name('customer.list');
-    Route::get('/comments', CommentListController::class)->name('comment.list');
-    Route::get('/services', ServiceListController::class)->name('service.list');
     Route::get('/providers', ProviderListController::class)->name('provider.list');
     Route::get('/providers/{provider}', ProviderDetailController::class)->name('provider.detail');
+    Route::get('/providers/{provider}/comments', CommentListController::class)->name('comment.list');
+    Route::get('/providers/{provider}/services', ServiceListController::class)->name('service.list');
 });
 
 

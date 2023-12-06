@@ -12,38 +12,6 @@ servers:
 #  - bearerAuth: []
 paths:
   /api/v1/comments:
-    get:
-      summary: Get list of comments
-      tags:
-        - public
-      responses:
-        200:
-          description: OK
-#            todo validacia response
-          content:
-            application/json:
-              schema:
-                type: object
-                required: [ data ]
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-#                        required: [ todo ]
-                      properties:
-                        id:
-                          type: integer
-                        text:
-                          type: string
-                        rating:
-                          type: integer
-                        customerId:
-                          type: integer
-                        providerId:
-                          type: integer
-        401:
-          description: Unauthorised access
     post:
       summary: Create comment
       tags:
@@ -101,41 +69,6 @@ paths:
       responses:
         201:
           description: Service was successfully created
-        401:
-          description: Unauthorised access
-    get:
-      summary: List of services
-      tags:
-        - public
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                required: [ data ]
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      required: [ id, name, description, price, duration, providerId ]
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
-                        description:
-                          type: string
-                          nullable: true
-                        price:
-                          type: number
-                          format: float
-                        duration:
-                          type: integer
-                        providerId:
-                          type: integer
         401:
           description: Unauthorised access
 
@@ -460,6 +393,77 @@ paths:
                     type: string
                   description:
                     type: string
+        401:
+          description: Unauthorised access
+
+  /api/v1/providers/{providerId}/comments:
+    get:
+      summary: Get list of comments by provider ID
+      tags:
+        - public
+      responses:
+        200:
+          description: OK
+          #            todo validacia response
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ data ]
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+#                      required: [ todo ]
+                      properties:
+                        id:
+                          type: integer
+                        text:
+                          type: string
+                        rating:
+                          type: integer
+                        customerId:
+                          type: integer
+                        providerId:
+                          type: integer
+        401:
+          description: Unauthorised access
+
+  /api/v1/providers/{providerId}/services:
+    get:
+      summary: List of services by provider ID
+      tags:
+        - public
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ data ]
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required: [ id, name, description, price, duration, providerId ]
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                          nullable: true
+                        price:
+                          type: number
+                          format: float
+                        duration:
+                          type: integer
+                        providerId:
+                          type: integer
         401:
           description: Unauthorised access
 
