@@ -291,6 +291,17 @@ paths:
         401:
           description: Unauthorised access
 
+  /api/auth/logout:
+    get:
+      summary: User log-out
+      tags:
+        - auth
+      responses:
+        200:
+          description: User logged out successfully
+        401:
+          description: Unauthorised access
+
   /api/v1/customers:
     get:
       summary: Get list of customers
