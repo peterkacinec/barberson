@@ -32,7 +32,7 @@ class RegistrationController extends Controller
                 ]
             );
 
-            return new JsonResponse(false, Response::HTTP_INTERNAL_SERVER_ERROR);
+            return new JsonResponse(false, Response::HTTP_BAD_REQUEST);
         }
 
         return new JsonResponse([
