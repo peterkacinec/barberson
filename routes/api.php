@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegistrationController;
 use App\Http\Controllers\Api\V1\CommentListController;
+use App\Http\Controllers\Api\V1\CustomerProfileController;
 use App\Http\Controllers\Api\V1\SaveCommentController;
 use App\Http\Controllers\Api\V1\CustomerListController;
 use App\Http\Controllers\Api\V1\OrderDetailController;
@@ -35,6 +36,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::get('/orders/{order}', OrderDetailController::class)->name('order.detail');
         Route::post('/orders', SaveOrderController::class)->name('order.save');
         Route::post('/services', SaveServiceController::class)->name('service.save');
+        Route::get('/customers/{customer}/profile', CustomerProfileController::class)->name('customer.profile');
     });
 
     Route::get('/customers', CustomerListController::class)->name('customer.list');

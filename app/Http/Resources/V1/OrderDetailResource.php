@@ -7,7 +7,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class OrderDetailResource extends JsonResource
 {
     public static $wrap = null;
     /**
@@ -23,6 +23,8 @@ class OrderResource extends JsonResource
             'date' => $this->date,
             'totalPrice' => $this->price,
             'status' => $this->status,
+            'selectedServices' => OrderItemResource::collection($this->orderItems),
+//            'selectedServices' => OrderItemResource::collection($this->whenLoaded('orderItems')), //todo
             'paymentType' => $this->payment_type,
             'location' => $this->customer_address,
         ];

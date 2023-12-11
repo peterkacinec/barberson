@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 class CustomerResource extends JsonResource
 {
+    public static $wrap = null;
     /**
      * Transform the resource into an array.
      *
@@ -17,8 +18,6 @@ class CustomerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        Str::orderedUuid()->toString(); todo
-
         return [
             'id' => $this->id,
             'name' => $this->user->first_name,
