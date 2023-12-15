@@ -22,7 +22,6 @@ class SaveCommentRequest extends FormRequest
             'text' => 'required',
             'rating' => 'required|integer|between:1,5',
             'provider_id' => 'required|numeric',
-            'customer_id' => 'required|numeric',
         ];
     }
 
@@ -30,7 +29,6 @@ class SaveCommentRequest extends FormRequest
     {
         $this->merge([
             'provider_id' => $this->providerId,
-            'customer_id' => $this->customerId,
         ]);
     }
 }

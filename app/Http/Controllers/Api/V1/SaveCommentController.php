@@ -14,7 +14,14 @@ class SaveCommentController extends Controller
 {
     public function __invoke(SaveCommentRequest $request): JsonResource
     {
-        $comment = Comment::create($request->validated());
+        $loggedUserId = $request->user()->id;
+
+        $comment = Comment::create(
+            [
+                ...$request->validated(),
+                "customer_id" => $loggedUserId,
+            ]
+        );
 
         return new CommentResource($comment);
     }

@@ -27,7 +27,6 @@ class SaveOrderRequest extends FormRequest
             'status' => 'required',
             'payment_type' => 'required',
             'provider_id' => 'required|numeric',
-            'customer_id' => 'required|numeric',
             'customer_address' => 'required',
 //            'selected_services' => 'array'
         ];
@@ -38,7 +37,6 @@ class SaveOrderRequest extends FormRequest
         $this->merge([
             'payment_type' => $this->paymentType,
             'provider_id' => $this->providerId,
-            'customer_id' => $this->customerId,
             'customer_address' => $this->customerAddress,
 //            'selected_services' => $this->selectedServices,
         ]);
