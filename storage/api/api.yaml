@@ -336,6 +336,46 @@ paths:
           description: Unauthorised access
 
   /api/v1/customers/{customerId}/profile:
+    put:
+      summary: Edit customer profile
+      parameters:
+          - $ref: '#/components/parameters/CustomerId'
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ name, surname, birthdate, email ]
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                birthdate:
+                  type: string
+                  format: date
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+                  nullable: true
+                photo:
+                  type: string
+                  format: uri
+                  nullable: true
+      responses:
+        200:
+          description: Profile updated successfully
+        400:
+          description: Bad request
+        401:
+          description: Unauthorised access
     get:
       summary: Get customer profile
       parameters:
