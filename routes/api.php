@@ -37,8 +37,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::get('/orders/{order}', OrderDetailController::class)->name('order.detail');
         Route::post('/orders', SaveOrderController::class)->name('order.save');
         Route::post('/services', SaveServiceController::class)->name('service.save');
-        Route::get('/customers/{customer}/profile', CustomerProfileController::class)->name('customer.profile');
-        Route::put('/customers/{customer}/profile', EditCustomerProfileController::class)->name('customer.profile.edit');
+        Route::get('/customers/profile', CustomerProfileController::class)->name('customer.profile');
+        Route::put('/customers/profile', EditCustomerProfileController::class)->name('customer.profile.edit');
     });
 
     Route::get('/customers', CustomerListController::class)->name('customer.list');

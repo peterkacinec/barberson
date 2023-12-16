@@ -6,21 +6,19 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditCustomerProfileRequest;
-use App\Models\Customer;
+use App\Models\CustomerUser;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class EditCustomerProfileController extends Controller
 {
-    public function __invoke(EditCustomerProfileRequest $request, Customer $customer): JsonResponse
+    public function __invoke(EditCustomerProfileRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        if ($request->user()->id !== $customer->user->id) {
-            return new JsonResponse(false, Response::HTTP_UNAUTHORIZED);
-        }
+        $customerUser = CustomerUser::find($request->user()->id);
 
-        $customer->user->update($data);
+        $customerUser->update($data);
 
         return new JsonResponse(true, Response::HTTP_OK);
     }

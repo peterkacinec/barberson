@@ -24,10 +24,11 @@ paths:
           application/json:
             schema:
               type: object
-              required: [text, rating, providerId]
+              required: [rating, providerId]
               properties:
-                text:
+                message:
                   type: string
+                  nullable: true
                 rating:
                   type: integer
                 providerId:
@@ -331,11 +332,9 @@ paths:
         401:
           description: Unauthorised access
 
-  /api/v1/customers/{customerId}/profile:
+  /api/v1/customers/profile:
     put:
       summary: Edit customer profile
-      parameters:
-          - $ref: '#/components/parameters/CustomerId'
       tags:
         - private
       security:
@@ -370,12 +369,8 @@ paths:
           description: Profile updated successfully
         400:
           description: Bad request
-        401:
-          description: Unauthorised access
     get:
       summary: Get customer profile
-      parameters:
-        - $ref: '#/components/parameters/CustomerId'
       tags:
         - private
       security:
@@ -496,18 +491,28 @@ paths:
                     type: array
                     items:
                       type: object
-#                      required: [ todo ]
+                      required: [ id, rating, customerId, authorName, providerId, createdAt ]
                       properties:
                         id:
                           type: integer
-                        text:
+                        message:
                           type: string
+                          nullable: true
                         rating:
                           type: integer
                         customerId:
                           type: integer
+                        authorName:
+                          type: string
+                        src:
+                          type: string
+                          format: uri
+                          nullable: true
                         providerId:
                           type: integer
+                        createdAt:
+                          type: string
+                          format: date
         401:
           description: Unauthorised access
 

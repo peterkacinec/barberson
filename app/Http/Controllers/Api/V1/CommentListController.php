@@ -14,7 +14,7 @@ class CommentListController extends Controller
 {
     public function __invoke(Request $request, Provider $provider): JsonResponse
     {
-        $resource = new CommentCollection($provider->comments);
+        $resource = new CommentCollection($provider->comments()->with(['customer', 'customer.user'])->get());
 
         return $this->openApiValidator->validateResponse($request, $resource->response());
     }

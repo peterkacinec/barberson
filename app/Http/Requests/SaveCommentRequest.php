@@ -19,7 +19,7 @@ class SaveCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'text' => 'required',
+            'text' => 'nullable',
             'rating' => 'required|integer|between:1,5',
             'provider_id' => 'required|numeric',
         ];
@@ -29,6 +29,7 @@ class SaveCommentRequest extends FormRequest
     {
         $this->merge([
             'provider_id' => $this->providerId,
+            'text' => $this->message,
         ]);
     }
 }
