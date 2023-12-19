@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Common\Infrastructure\Log\Context;
+use App\Exceptions\Application\EmailAlreadyExistsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\CustomerUser;
@@ -23,6 +24,8 @@ class RegistrationController extends Controller
     {
         try {
             $customerUser = $this->registerCustomerService->__invoke($request->validated());
+        } catch (EmailAlreadyExistsException $exception) {
+            return new JsonResponse(['message' => $exception->getMessage()], Response::HTTP_CONFLICT);
         } catch (Exception $exception) {
             Log::error(
                 sprintf("Some problem during the user registration, reason: %s", $exception->getMessage()),
