@@ -7,7 +7,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProviderListResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +18,7 @@ class ProviderListResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->company->title,
-            'priceStarter' => '19', //todo
-            'averageRating' => '5', //todo
-            'description' => $this->description,
+            'name' => $this->name,
         ];
     }
 }

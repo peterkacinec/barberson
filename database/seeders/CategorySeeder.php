@@ -5,14 +5,14 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class SectionSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('sections')->insert([
+        DB::table('categories')->insert([
             [
                 'name' => 'barber',
                 'created_at' => \Carbon\Carbon::now(),

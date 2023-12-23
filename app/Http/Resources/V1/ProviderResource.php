@@ -30,7 +30,7 @@ class ProviderResource extends JsonResource
             'location' => 'todo',
             'workingDays' => 'todo',
             'availableTimes' => 'todo',
-            'rating' => 'todo',
+            'averageRating' => 'todo',
             'priceStarter' => 'todo'
         ];
     }

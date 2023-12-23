@@ -16,12 +16,18 @@ return new class extends Migration
             $table->string('state');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('category_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('company_id')
                 ->references('id')
                 ->on('companies');
+//                ->onDelete('cascade');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories');
 //                ->onDelete('cascade');
         });
     }

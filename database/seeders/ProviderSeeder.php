@@ -18,6 +18,7 @@ class ProviderSeeder extends Seeder
             ->hasComments(5)
             ->hasServices(3)
             ->hasCompany()
+            ->hasCategory()
             ->create();
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegistrationController;
+use App\Http\Controllers\Api\V1\CategoryListController;
 use App\Http\Controllers\Api\V1\CommentListController;
 use App\Http\Controllers\Api\V1\CustomerProfileController;
 use App\Http\Controllers\Api\V1\EditCustomerProfileController;
@@ -41,6 +42,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::put('/customers/profile', EditCustomerProfileController::class)->name('customer.profile.edit');
     });
 
+    Route::get('/categories', CategoryListController::class)->name('category.list');
     Route::get('/customers', CustomerListController::class)->name('customer.list');
     Route::get('/providers', ProviderListController::class)->name('provider.list');
     Route::get('/providers/{provider}', ProviderDetailController::class)->name('provider.detail');

@@ -24,6 +24,7 @@ class ProviderFactory extends Factory
 //            'photo' => $this->faker->imageUrl,
             'description' => $this->faker->realText,
             'company_id' => Company::factory(),
+            'category_id' => $this->faker->randomElement([1,2,3,4,5]),
         ];
     }
 }

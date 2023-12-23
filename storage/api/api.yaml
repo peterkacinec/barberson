@@ -414,6 +414,14 @@ paths:
       summary: Get list of providers
       tags:
         - public
+      parameters:
+        - in: query
+          name: categoryId
+          schema:
+            type: integer
+            minimum: 1
+          required: true
+          description: The category ID for filtering providers
       responses:
         200:
           description: OK
@@ -552,6 +560,32 @@ paths:
                           type: integer
                         providerId:
                           type: integer
+        401:
+          description: Unauthorised access
+  /api/v1/categories:
+    get:
+      summary: List of basic categories
+      tags:
+        - public
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ data ]
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required: [id, name]
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
         401:
           description: Unauthorised access
 

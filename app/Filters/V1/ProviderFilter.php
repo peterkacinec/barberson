@@ -10,6 +10,7 @@ class ProviderFilter extends ApiFilter
 {
     protected array $allowedParams = [
         'name' => ['eq'],
+        'category_id' => ['eq'],
         'surname' => ['eq'],
         'birthdate' => ['eq', 'lt', 'lte', 'gt', 'gte'],
         'email' => ['eq'],

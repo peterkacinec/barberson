@@ -32,4 +32,9 @@ class Provider extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

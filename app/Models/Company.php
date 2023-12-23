@@ -26,10 +26,11 @@ class Company extends Model
         'country',
     ];
 
-    public function provider(): BelongsTo
-    {
-        return $this->belongsTo(Provider::class);
-    }
+    //todo potrebujem to?
+//    public function provider(): BelongsTo
+//    {
+//        return $this->belongsTo(Provider::class);
+//    }
 
     public function customer(): BelongsTo
     {
