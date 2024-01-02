@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->float('price');
-//            $table->string('currency'); TODO
+            $table->string('currency')->default('EUR');
             $table->integer('duration');
             $table->unsignedBigInteger('provider_id');
             $table->timestamp('created_at')->useCurrent();

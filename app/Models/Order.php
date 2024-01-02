@@ -18,6 +18,7 @@ class Order extends Model
         'date',
         'time',
         'price', //todo potrebujem?
+        'currency',
 //        'promoCode',
         'status', // enum konkretnych moznosti pending, completed, cancelled, refunded
         'payment_type',

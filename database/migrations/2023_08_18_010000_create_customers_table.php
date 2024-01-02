@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('state');
             $table->string('photo')->nullable();
-            $table->unsignedBigInteger('c_user_id')->nullable();
+            $table->unsignedBigInteger('customer_user_id')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('c_user_id')
+            $table->foreign('customer_user_id')
                 ->references('id')
-                ->on('c_users');
+                ->on('customer_users');
 //                ->onDelete('cascade');
 
             $table->foreign('company_id')

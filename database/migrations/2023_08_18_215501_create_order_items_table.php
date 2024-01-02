@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('price');
-//            $table->string('currency'); TODO
+            $table->string('currency')->default('EUR');
             $table->unsignedBigInteger('order_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

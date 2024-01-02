@@ -21,6 +21,7 @@ class ServiceFactory extends Factory
             'name' => $this->faker->title,
             'description' => $this->faker->realText,
             'price' => $this->faker->randomFloat('2','0','1000'),
+            'currency' => $this->faker->randomElement(['EUR']),
             'duration' => $this->faker->randomElement([30,45,60,90]),
             'provider_id' => Provider::factory(),
         ];

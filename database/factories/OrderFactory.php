@@ -23,6 +23,7 @@ class OrderFactory extends Factory
             'name' => $this->faker->name,
             'date' => $this->faker->date('Y-m-d'),
             'price' => $this->faker->randomFloat('2','0','1000'),
+            'currency' => $this->faker->randomElement(['EUR']),
             'status' => $this->faker->randomElement(['pending', "completed", "cancelled", "refunded"]),
             'payment_type' => $this->faker->randomElement(['card']),
             'provider_id' => Provider::factory(),

@@ -13,7 +13,6 @@ use Laravel\Sanctum\HasApiTokens;
 class CustomerUser extends Authenticatable
 {
     public const ACCESS_TOKEN_NAME = "CUSTOMER_USER_TOKEN";
-    protected $table = 'c_users';
 
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -28,6 +27,7 @@ class CustomerUser extends Authenticatable
         'birthdate',
         'phone', //todo treba?
         'email',
+        'language',
         'password',
     ];
 
@@ -53,6 +53,6 @@ class CustomerUser extends Authenticatable
 
     public function customer()
     {
-        return $this->hasOne(Customer::class, 'c_user_id');
+        return $this->hasOne(Customer::class, 'customer_user_id');
     }
 }

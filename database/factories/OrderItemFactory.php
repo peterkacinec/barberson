@@ -20,6 +20,7 @@ class OrderItemFactory extends Factory
         return [
             'name' => $this->faker->jobTitle,
             'price' => $this->faker->randomFloat('2','0','1000'),
+            'currency' => $this->faker->randomElement(['EUR']),
             'order_id' => Order::factory(),
         ];
     }

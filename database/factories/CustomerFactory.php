@@ -21,7 +21,7 @@ class CustomerFactory extends Factory
 //            'id' => $this->faker->id(),
             'state' => $this->faker->randomElement(['new', 'todo']),
             'photo' => $this->faker->imageUrl,
-            'c_user_id' => CustomerUser::factory(),
+            'customer_user_id' => CustomerUser::factory(),
             'company_id' => null,
         ];
     }

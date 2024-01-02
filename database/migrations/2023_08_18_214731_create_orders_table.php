@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name'); // todo potrebujem toto?
             $table->date('date');
             $table->float('price'); // todo potrebujem toto, alebo staci mat iba na polozkach a tu pocitat SUM
-//            $table->string('currency'); TODO
+            $table->string('currency')->default('EUR');
             $table->string('status');
             $table->string('payment_type');
             $table->unsignedBigInteger('provider_id');

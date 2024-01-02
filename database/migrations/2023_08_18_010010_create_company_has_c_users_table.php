@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company_has_c_users', function (Blueprint $table) {
+        Schema::create('company_has_customer_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('c_user_id');
+            $table->unsignedBigInteger('customer_user_id');
             $table->unsignedBigInteger('company_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('c_user_id')
+            $table->foreign('customer_user_id')
                 ->references('id')
-                ->on('c_users');
+                ->on('customer_users');
 //                ->onDelete('cascade');
 
             $table->foreign('company_id')

@@ -16,7 +16,7 @@ class Customer extends Model
     protected $fillable = [
         'state',
         'photo',
-        'c_user_id',
+        'customer_user_id',
         'company_id',
     ];
 
@@ -28,6 +28,6 @@ class Customer extends Model
 
     public function user()
     {
-        return $this->belongsTo(CustomerUser::class, 'c_user_id');
+        return $this->belongsTo(CustomerUser::class, 'customer_user_id');
     }
 }
