@@ -30,4 +30,14 @@ class Customer extends Model
     {
         return $this->belongsTo(CustomerUser::class, 'customer_user_id');
     }
+
+    public function isPerson(): bool
+    {
+        return (bool)$this->customer_user_id;
+    }
+
+    public function isCompany(): bool
+    {
+        return (bool)$this->company_id;
+    }
 }

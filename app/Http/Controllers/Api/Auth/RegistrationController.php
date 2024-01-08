@@ -9,7 +9,7 @@ use App\Exceptions\Application\EmailAlreadyExistsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\CustomerUser;
-use App\Services\RegisterCustomerService;
+use App\Services\CustomerRegistrationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Log;
 
 class RegistrationController extends Controller
 {
-    public function __construct(private RegisterCustomerService $registerCustomerService)
+    public function __construct(private CustomerRegistrationService $customerRegistrationService)
     {}
 
     public function __invoke(RegisterUserRequest $request): JsonResponse
     {
         try {
-            $customerUser = $this->registerCustomerService->__invoke($request->validated());
+            $customerUser = $this->customerRegistrationService->__invoke($request->validated());
         } catch (EmailAlreadyExistsException $exception) {
             return new JsonResponse(['message' => $exception->getMessage()], Response::HTTP_CONFLICT);
         } catch (Exception $exception) {

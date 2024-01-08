@@ -21,9 +21,9 @@ class OrderListController extends Controller
         if ($queryItems === []) {
             $resource = new OrderCollection(Order::with('orderItems')->get());
         } else {
-            $customers = Order::where($queryItems)->paginate();
+            $orders = Order::where($queryItems)->paginate();
 
-            $resource = new OrderCollection($customers->appends($request->query()));
+            $resource = new OrderCollection($orders->appends($request->query()));
         }
 
         return $this->openApiValidator->validateResponse($request, $resource->response());

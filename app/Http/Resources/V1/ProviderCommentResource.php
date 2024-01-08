@@ -7,7 +7,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentResource extends JsonResource
+class ProviderCommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,13 +17,11 @@ class CommentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'message' => $this->text,
             'rating' => $this->rating,
             'customerId' => $this->customer_id,
             'authorName' => 'todo',
-            'customerPhotoUrl' => $this->customer->photo,
-            'providerId' => $this->provider_id,
+//            'customerPhotoUrl' => $this->customer->photo, //todo problem with lazy loading
             'createdAt' => $this->created_at,
         ];
     }

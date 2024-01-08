@@ -151,15 +151,16 @@ paths:
                   type: array
                   items:
                     type: object
-                    required: [ id, title, price ]
+                    required: [ title, price, currency ]
                     properties:
-                      id:
-                        type: integer
                       title:
                         type: string
                       price:
                         type: number
                         format: float
+                      currency:
+                        type: string
+                        enum: [EUR]
       responses:
         201:
           description: Order was successfully created
@@ -465,16 +466,43 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [ id, name, surname, description ]
+                required: [ data ]
                 properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  surname:
-                    type: string
-                  description:
-                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required: [ id, name, ico, description ]
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        ico:
+                          type: string
+                        iban:
+                          type: string
+                        email:
+                          type: string
+                        phone:
+                          type: string
+                        description:
+                          type: string
+                        services:
+                          type: array
+                          items:
+                            type: object
+                            required: [ title, price, currency ]
+                            properties:
+                              title:
+                                type: string
+                              price:
+                                type: number
+                                format: float
+                              currency:
+                                type: string
+                                enum: [ EUR ]
+
         401:
           description: Unauthorised access
 
@@ -512,7 +540,7 @@ paths:
                           type: integer
                         authorName:
                           type: string
-                        src:
+                        customerPhotoUrl:
                           type: string
                           format: uri
                           nullable: true

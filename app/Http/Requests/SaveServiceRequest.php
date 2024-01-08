@@ -23,7 +23,7 @@ class SaveServiceRequest extends FormRequest
             'description' => 'nullable',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
-            'provider_id' => 'required|numeric',
+            'provider_id' => 'required|numeric', //todo zamysliet sa ako to urobit, providerId moze mat viacero userov a user viacero providerId
         ];
     }
 

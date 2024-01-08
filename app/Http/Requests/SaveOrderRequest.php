@@ -28,7 +28,10 @@ class SaveOrderRequest extends FormRequest
             'payment_type' => 'required',
             'provider_id' => 'required|numeric',
             'customer_address' => 'required',
-//            'selected_services' => 'array'
+            'selected_services' => 'required|array',
+            'selected_services.*.title' => 'required',
+            'selected_services.*.price' => 'required|numeric',
+            'selected_services.*.currency' => 'required|in:EUR,todo',
         ];
     }
 
@@ -38,7 +41,7 @@ class SaveOrderRequest extends FormRequest
             'payment_type' => $this->paymentType,
             'provider_id' => $this->providerId,
             'customer_address' => $this->customerAddress,
-//            'selected_services' => $this->selectedServices,
+            'selected_services' => $this->selectedServices,
         ]);
     }
 }

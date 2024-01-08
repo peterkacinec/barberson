@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->float('price');
             $table->string('currency')->default('EUR');
             $table->unsignedBigInteger('order_id');

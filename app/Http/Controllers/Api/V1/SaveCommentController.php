@@ -6,23 +6,22 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveCommentRequest;
-use App\Http\Resources\V1\CommentResource;
 use App\Models\Comment;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\JsonResponse;
 
 class SaveCommentController extends Controller
 {
-    public function __invoke(SaveCommentRequest $request): JsonResource
+    public function __invoke(SaveCommentRequest $request): JsonResponse
     {
         $loggedUserId = $request->user()->id;
 
-        $comment = Comment::create(
+        Comment::create(
             [
                 ...$request->validated(),
-                "customer_id" => $loggedUserId,
+                'customer_id' => $loggedUserId,
             ]
         );
 
-        return new CommentResource($comment);
+        return new JsonResponse(true);
     }
 }

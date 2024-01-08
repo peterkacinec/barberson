@@ -17,12 +17,14 @@ class SaveOrderController extends Controller
 
     public function __invoke(SaveOrderRequest $request): JsonResponse
     {
+//        $loggedUserId = $request->user()->customer->id;
         $loggedUserId = $request->user()->id;
 
         $this->saveOrderService->__invoke(
             [
                 ...$request->validated(),
-                "customer_id" => $loggedUserId,
+                'customer_id' => $loggedUserId,
+                'currency' => 'EUR',
             ]
         );
 

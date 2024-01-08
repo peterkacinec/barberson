@@ -15,9 +15,16 @@ class SaveOrderService
 
     public function __invoke(array $request): void
     {
-//        $this->transactionService->transactional();
-        //todo doplnit transakciu
-        $order = new Order($request);
-        $order->save();
+        $this->transactionService->transactional(
+            function () use ($request) {
+                $selectedServices = $request['selected_services'];
+                unset($request['selected_services']);
+                $order = new Order($request);
+                $order->save();
+                $order->orderItems()->createMany([
+                    ...$selectedServices
+                ]);
+            }
+        );
     }
 }

@@ -6,10 +6,11 @@ namespace App\Services;
 
 use App\Common\Application\TransactionServiceInterface;
 use App\Exceptions\Application\EmailAlreadyExistsException;
+use App\Exceptions\Application\RegisterCustomerException;
 use App\Models\Customer;
 use App\Models\CustomerUser;
 
-class RegisterCustomerService
+class CustomerRegistrationService
 {
     private CustomerUser $customerUser;
 
@@ -28,10 +29,13 @@ class RegisterCustomerService
                 }
 
                 $this->customerUser = new CustomerUser($request);
-                $this->customerUser->save();
+                $this->customerUser->save(); //must be here
 
                 $customer = new Customer();
                 $customer->user()->associate($this->customerUser);
+                if (!$customer->isPerson() && !$customer->isCompany()) {
+                    throw new RegisterCustomerException("Customer registration invalid data.");
+                }
                 $customer->save();
             }
         );
