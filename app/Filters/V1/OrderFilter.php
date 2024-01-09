@@ -10,6 +10,8 @@ class OrderFilter extends ApiFilter
 {
     protected array $allowedParams = [
         'name' => ['eq'],
+        'customerId' => ['eq'],
+        'providerId' => ['eq'],
         'date' => ['eq', 'lt', 'lte', 'gt', 'gte'],
         'totalPrice' => ['eq', 'lt', 'lte', 'gt', 'gte'],
         'status' => ['eq', 'ne'],
@@ -21,6 +23,8 @@ class OrderFilter extends ApiFilter
         'totalPrice' => 'price',
         'paymentType' => 'payment_type',
         'location' => 'customer_address',
+        'providerId' => 'provider_id',
+        'customerId' => 'customer_id',
         'createdAt' => 'created_at',
         'updatedAt' => 'updated_at',
     ];
