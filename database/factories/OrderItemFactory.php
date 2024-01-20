@@ -18,7 +18,7 @@ class OrderItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->jobTitle,
+            'title' => $this->faker->jobTitle,
             'price' => $this->faker->randomFloat('2','0','1000'),
             'currency' => $this->faker->randomElement(['EUR']),
             'order_id' => Order::factory(),
