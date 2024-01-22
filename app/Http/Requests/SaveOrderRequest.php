@@ -31,17 +31,24 @@ class SaveOrderRequest extends FormRequest
             'selected_services' => 'required|array',
             'selected_services.*.title' => 'required',
             'selected_services.*.price' => 'required|numeric',
-            'selected_services.*.currency' => 'required|in:EUR,todo',
+            'selected_services.*.currency' => 'required|in:EUR,todo', //todo doplnit meny
         ];
     }
 
     protected function prepareForValidation(): void
     {
+        $selectedServices = $this->selectedServices;
+
+        foreach ($this->selectedServices as $key => $v) {
+            $selectedServices[$key]['title'] = $selectedServices[$key]['name'];
+            unset($selectedServices[$key]['name']);
+        }
+
         $this->merge([
             'payment_type' => $this->paymentType,
             'provider_id' => $this->providerId,
             'customer_address' => $this->customerAddress,
-            'selected_services' => $this->selectedServices,
+            'selected_services' => $selectedServices,
         ]);
     }
 }

@@ -4,7 +4,7 @@ info:
   description: API endpoints
   version: 1.0.0
 servers:
-  - url: 'https://barberson.local/'
+  - url: 'https://barberson-b2c.local/'
     description: Local server
   - url: 'https://barberson.vymozete.sk/'
     description: Test server
@@ -151,9 +151,9 @@ paths:
                   type: array
                   items:
                     type: object
-                    required: [ title, price, currency ]
+                    required: [ name, price, currency ]
                     properties:
-                      title:
+                      name:
                         type: string
                       price:
                         type: number
@@ -202,15 +202,16 @@ paths:
                     type: array
                     items:
                       type: object
-                      required: [ id, name, price ]
+                      required: [ name, price, currency ]
                       properties:
-                        id:
-                          type: integer
                         name:
                           type: string
                         price:
                           type: number
                           format: float
+                        currency:
+                          type: string
+                          enum: [ EUR ]
                   paymentType:
                     type: string
                   location:
@@ -492,9 +493,9 @@ paths:
                           type: array
                           items:
                             type: object
-                            required: [ title, price, currency ]
+                            required: [ name, price, currency ]
                             properties:
-                              title:
+                              name:
                                 type: string
                               price:
                                 type: number
