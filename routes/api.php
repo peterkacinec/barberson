@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\V1\ProviderListController;
 use App\Http\Controllers\Api\V1\ServiceListController;
 use App\Http\Controllers\Api\V1\SaveServiceController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Cashier\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::post('/services', SaveServiceController::class)->name('service.save');
         Route::get('/customers/profile', CustomerProfileController::class)->name('customer.profile');
         Route::put('/customers/profile', EditCustomerProfileController::class)->name('customer.profile.edit');
+        Route::get('/checkout', PaymentController::class)->name('checkout.createSession');
     });
 
     Route::get('/categories', CategoryListController::class)->name('category.list');
