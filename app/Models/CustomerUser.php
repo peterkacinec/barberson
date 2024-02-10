@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Common\Domain\ValueObject\FullName;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,5 +56,15 @@ class CustomerUser extends Authenticatable
     public function customer()
     {
         return $this->hasOne(Customer::class, 'customer_user_id');
+    }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => FullName::create(
+                $attributes['first_name'],
+                $attributes['surname'],
+            )->toString(),
+        )->shouldCache();
     }
 }

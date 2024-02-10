@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
+            $table->string('marketing_name')->nullable(); //todo nechat to ako nullable? alebo nastavovat to automaticky na 1:1 z firemnym nazvom
             $table->string('state');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('company_id');

@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use App\Models\CustomerUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class CompanyFactory extends Factory
     {
         return [
 //            'uuid' => $this->faker->uuid(),
-            'title' => $this->faker->randomElement(['new', 'todo']),
+            'title' => $this->faker->company,
             'ico' => $this->faker->randomNumber(),
             'vat' => $this->faker->randomNumber(),
             'iban' => $this->faker->iban(),

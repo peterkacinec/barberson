@@ -26,7 +26,7 @@ class ProviderResource extends JsonResource
             'phone' => $this->company->phone,
             'description' => $this->description,
             'services' => ProviderServiceResource::collection($this->services),
-            'comments' => ProviderCommentResource::collection($this->comments),
+            'comments' => ProviderCommentResource::collection($this->comments->load('customer', 'customer.user')),
             'location' => 'todo',
             'workingDays' => 'todo',
             'availableTimes' => 'todo',

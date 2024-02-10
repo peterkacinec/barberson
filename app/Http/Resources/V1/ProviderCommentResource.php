@@ -20,7 +20,7 @@ class ProviderCommentResource extends JsonResource
             'message' => $this->text,
             'rating' => $this->rating,
             'customerId' => $this->customer_id,
-            'authorName' => 'todo',
+            'authorName' => $this->customer->user->fullName,
 //            'customerPhotoUrl' => $this->customer->photo, //todo problem with lazy loading
             'createdAt' => $this->created_at,
         ];

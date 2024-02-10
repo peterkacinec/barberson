@@ -20,6 +20,7 @@ class ProviderFactory extends Factory
     {
         return [
 //            'uuid' => $this->faker->uuid(),
+            'marketing_name' => $this->faker->company,
             'state' => $this->faker->randomElement(['new', 'todo']),
 //            'photo' => $this->faker->imageUrl,
             'description' => $this->faker->realText,

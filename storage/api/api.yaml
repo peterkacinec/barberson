@@ -422,6 +422,7 @@ paths:
           schema:
             type: integer
             minimum: 1
+            maximum: 5
           required: true
           description: The category ID for filtering providers
       responses:

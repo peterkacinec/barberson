@@ -19,8 +19,8 @@ class ProviderListResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->company->title,
-            'priceStarter' => '19', //todo
-            'averageRating' => '5', //todo
+            'priceStarter' => $this->cheapestService->price,
+            'averageRating' => $this->comments_rating, // calculated field 'withAverage' laravel feature
             'description' => $this->description,
         ];
     }
