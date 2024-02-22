@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\Auth\EmailVerificationController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
+use App\Http\Controllers\Api\Auth\ForgotPasswordController;
+use App\Http\Controllers\Api\Auth\ResendEmailVerificationController;
+use App\Http\Controllers\Api\Auth\ResetForgottenPasswordController;
 use App\Http\Controllers\Api\Auth\RegistrationController;
+use App\Http\Controllers\Api\Auth\UpdatePasswordController;
 use App\Http\Controllers\Api\V1\CategoryListController;
 use App\Http\Controllers\Api\V1\CommentListController;
 use App\Http\Controllers\Api\V1\CustomerProfileController;
@@ -32,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
-    Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::group(['middleware' => 'auth:sanctum, verified'], function() {
         Route::post('/comments', SaveCommentController::class)->name('comment.save');
         Route::get('/orders', OrderListController::class)->name('order.list');
         Route::get('/orders/{order}', OrderDetailController::class)->name('order.detail');
@@ -50,7 +55,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::get('/providers/{provider}/services', ServiceListController::class)->name('service.list');
 });
 
-
 Route::get('/auth/logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 Route::post('/auth/register', RegistrationController::class)->name('user.register');
 Route::post('/auth/login', LoginController::class)->name('user.login');
+Route::post('/auth/forgot-password', ForgotPasswordController::class)->name('user.forgot.password');
+Route::post('/auth/reset-password', ResetForgottenPasswordController::class)->name('user.reset.forgotten.password');
+Route::put('/auth/update-password', UpdatePasswordController::class)->name('user.update.password')->middleware('auth:sanctum, verified');
+Route::post('/auth/email/verify/{id}/{hash}', EmailVerificationController::class)->name('verification.verify')->middleware('auth:sanctum');
+Route::post('/auth/email/resend-verification-notification', ResendEmailVerificationController::class)->name('verification.resend')->middleware('auth:sanctum');
+
+//todo odtestovat middleware throttle:6,1 a verified

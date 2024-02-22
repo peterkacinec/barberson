@@ -219,31 +219,6 @@ paths:
         401:
           description: Unauthorised access
 
-  /api/auth/login:
-    post:
-      summary: User log-in
-      tags:
-        - auth
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [ email, password ]
-              properties:
-                email:
-                  type: string
-                  format: email
-                password:
-                  type: string
-                  format: password
-      responses:
-        201:
-          description: User logged in successfully
-        401:
-          description: Unauthorised access
-
   /api/auth/register:
     post:
       summary: User registration
@@ -278,6 +253,135 @@ paths:
           description: User registered successfully
         401:
           description: Unauthorised access
+
+  /api/auth/login:
+    post:
+      summary: User log-in
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ email, password ]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        201:
+          description: User logged in successfully
+        401:
+          description: Unauthorised access
+
+  /api/auth/forgot-password:
+    post:
+      summary: Forgot password
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ email ]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        200:
+          description: Sent email with link to reset password
+        400:
+          description: Bad request
+
+  /api/auth/reset-password:
+    post:
+      summary: Reset forgotten password by email token
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ token, email, password, password_confirmation ]
+              properties:
+                token:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                password_confirmation:
+                  type: string
+                  format: password
+      responses:
+        200:
+          description: User reset password successfully
+        400:
+          description: Bad request
+
+  /api/auth/update-password:
+    put:
+      summary: Update password by user when is logged
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ actual_password, password, password_confirmation ]
+              properties:
+                actual_password:
+                  type: string
+                  format: password
+                password:
+                  type: string
+                  format: password
+                password_confirmation:
+                  type: string
+                  format: password
+      responses:
+        200:
+          description: User reset password successfully
+        400:
+          description: Bad request
+        422:
+          description: Unprocessable entity
+          #todo (laravel form request validation failed)
+
+  /api/auth/email/resend-verification-notification:
+    post:
+      summary: Resend email verification notification to user email
+      responses:
+        200:
+          description: User get verification email successfully
+        500:
+          description: Server error
+
+  /api/auth/email/verify/{id}/{hash}:
+    post:
+      summary: Verify user registration email
+      parameters:
+        - $ref: '#/components/parameters/CustomerUserId'
+        - $ref: '#/components/parameters/Hash'
+        - $ref: '#/components/parameters/Expires'
+        - $ref: '#/components/parameters/Signature'
+      responses:
+        200:
+          description: User reset password successfully
 
   /api/auth/logout:
     get:
@@ -673,6 +777,36 @@ components:
         type: string
         format: integer
         example: 1
+    CustomerUserId:
+      name: id  #customerUserId
+      in: path
+      description: customer user id
+      required: true
+      schema:
+        type: string
+        format: integer
+        example: 1
+    Hash:
+      name: hash
+      in: path
+      description: Hash
+      required: true
+      schema:
+        type: string
+    Expires:
+      name: expires
+      in: query
+      required: true
+      description: Timestamp of expiration
+      schema:
+        type: integer
+    Signature:
+      name: signature
+      in: query
+      required: true
+      description: Token
+      schema:
+        type: string
 
   responses:
     UnexpectedErrorResponse:

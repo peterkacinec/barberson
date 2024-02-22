@@ -11,6 +11,7 @@ use App\Http\Requests\RegisterUserRequest;
 use App\Models\CustomerUser;
 use App\Services\CustomerRegistrationService;
 use Exception;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Log;
@@ -24,6 +25,8 @@ class RegistrationController extends Controller
     {
         try {
             $customerUser = $this->customerRegistrationService->__invoke($request->validated());
+
+            event(new Registered($customerUser));
         } catch (EmailAlreadyExistsException $exception) {
             return new JsonResponse(['message' => $exception->getMessage()], Response::HTTP_CONFLICT);
         } catch (Exception $exception) {
