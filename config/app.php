@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
+    'openApiSpecifacationPath' => base_path() . "/storage/api/api.yaml",
 
     /*
     |--------------------------------------------------------------------------
@@ -159,6 +162,9 @@ return [
         /*
          * Package Service Providers...
          */
+        \Laravel\Telescope\TelescopeServiceProvider::class,
+        L5Swagger\L5SwaggerServiceProvider::class, //todo preverit ci to tu treba mat
+
 
         /*
          * Application Service Providers...
@@ -169,7 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
-        L5Swagger\L5SwaggerServiceProvider::class,
     ])->toArray(),
 
     /*

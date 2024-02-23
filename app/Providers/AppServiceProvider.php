@@ -10,7 +10,6 @@ use App\Common\Infrastructure\Eloquent\Transaction\TransactionService;
 use App\Common\Infrastructure\OpenApi\OpenApiValidator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use L5Swagger\L5SwaggerServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +21,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app
             ->when(OpenApiValidator::class)
             ->needs('$pathToOpenApiSpec')
-            ->give('../storage/api/api.yaml');
+            ->give(config('app.openApiSpecifacationPath'));
 
         $this->app->bind(OpenApiValidatorInterface::class, OpenApiValidator::class);
         $this->app->bind(TransactionServiceInterface::class, TransactionService::class);
-
-        $this->app->register(L5SwaggerServiceProvider::class);
     }
 
     /**
