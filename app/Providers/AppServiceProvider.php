@@ -18,10 +18,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+
         $this->app
             ->when(OpenApiValidator::class)
             ->needs('$pathToOpenApiSpec')
-            ->give(config('app.openApiSpecifacationPath'));
+            ->give(config('app.openApiSpecificationPath'));
 
         $this->app->bind(OpenApiValidatorInterface::class, OpenApiValidator::class);
         $this->app->bind(TransactionServiceInterface::class, TransactionService::class);
@@ -32,11 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //It will only be enabled outside of production, though.
         Model::preventLazyLoading(! app()->isProduction());
-
-        Model::shouldBeStrict(
-//         It will only be enabled outside of production, though.
-            ! app()->isProduction()
-        );
+        Model::shouldBeStrict(! app()->isProduction());
     }
 }

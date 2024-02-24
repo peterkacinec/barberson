@@ -72,15 +72,14 @@ class CustomerUser extends Authenticatable implements MustVerifyEmail
         )->shouldCache();
     }
 
-//todo upravit url na FE stranku pre reset hesla
     public function sendPasswordResetNotification($token)
     {
-        $url = config('app.url') . '/api/auth/update-password?token='.$token.'&email='.$this->email;
+        $url = config('app.frontend_hostname') . 'reset-password?token='.$token.'&email='.$this->email;
 
         $this->notify(new ForgotPasswordNotification($this, $url));
     }
 
-    /*
+    /**
      * overwrite basic createToken because I want to delete() all tokens before generating a new one
      */
     public function createToken(string $name, array $abilities = ['*'], DateTimeInterface $expiresAt = null): NewAccessToken

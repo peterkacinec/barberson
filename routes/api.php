@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
-    Route::group(['middleware' => 'auth:sanctum, verified'], function() {
+    Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/comments', SaveCommentController::class)->name('comment.save');
         Route::get('/orders', OrderListController::class)->name('order.list');
         Route::get('/orders/{order}', OrderDetailController::class)->name('order.detail');
@@ -60,7 +60,7 @@ Route::post('/auth/register', RegistrationController::class)->name('user.registe
 Route::post('/auth/login', LoginController::class)->name('user.login');
 Route::post('/auth/forgot-password', ForgotPasswordController::class)->name('user.forgot.password');
 Route::post('/auth/reset-password', ResetForgottenPasswordController::class)->name('user.reset.forgotten.password');
-Route::put('/auth/update-password', UpdatePasswordController::class)->name('user.update.password')->middleware('auth:sanctum, verified');
+Route::put('/auth/update-password', UpdatePasswordController::class)->name('user.update.password')->middleware('auth:sanctum');
 Route::post('/auth/email/verify/{id}/{hash}', EmailVerificationController::class)->name('verification.verify')->middleware('auth:sanctum');
 Route::post('/auth/email/resend-verification-notification', ResendEmailVerificationController::class)->name('verification.resend')->middleware('auth:sanctum');
 

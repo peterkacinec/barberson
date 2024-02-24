@@ -312,7 +312,7 @@ paths:
           application/json:
             schema:
               type: object
-              required: [ token, email, password, password_confirmation ]
+              required: [ token, email, password, confirmPassword ]
               properties:
                 token:
                   type: string
@@ -322,7 +322,7 @@ paths:
                 password:
                   type: string
                   format: password
-                password_confirmation:
+                confirmPassword:
                   type: string
                   format: password
       responses:
@@ -342,15 +342,15 @@ paths:
           application/json:
             schema:
               type: object
-              required: [ actual_password, password, password_confirmation ]
+              required: [ currentPassword, newPassword, confirmPassword ]
               properties:
-                actual_password:
+                currentPassword:
                   type: string
                   format: password
-                password:
+                newPassword:
                   type: string
                   format: password
-                password_confirmation:
+                confirmPassword:
                   type: string
                   format: password
       responses:

@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
-    'openApiSpecifacationPath' => base_path() . "/storage/api/api.yaml",
+    'openApiSpecificationPath' => base_path() . "/storage/api/api.yaml",
+    'frontend_hostname' => env('FRONTEND_HOSTNAME'),
 
     /*
     |--------------------------------------------------------------------------
@@ -163,7 +164,7 @@ return [
          * Package Service Providers...
          */
         \Laravel\Telescope\TelescopeServiceProvider::class,
-        L5Swagger\L5SwaggerServiceProvider::class, //todo preverit ci to tu treba mat
+//        L5Swagger\L5SwaggerServiceProvider::class, //todo preverit ci to tu treba mat
 
 
         /*

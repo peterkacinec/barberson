@@ -24,4 +24,11 @@ class ResetForgottenPasswordRequest extends FormRequest
             'password' => ['required','confirmed'],
         ];
     }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'password_confirmation' => $this->confirmPassword,
+        ]);
+    }
 }

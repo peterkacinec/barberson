@@ -15,7 +15,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     public function register(): void
     {
-        // Telescope::night();
+//         Telescope::night();
 
         $this->hideSensitiveRequestDetails();
 
@@ -61,6 +61,18 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             return in_array($user->email, [
                 'kacinec.peter@gmail.com',
             ]);
+        });
+    }
+
+    /**
+     * override default method
+     */
+    protected function authorization(): void
+    {
+        $this->gate();
+
+        Telescope::auth(function ($request) {
+            return true;
         });
     }
 }

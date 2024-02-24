@@ -31,7 +31,5 @@ class ResetForgottenPasswordController extends Controller
         return new JsonResponse([
             'token' => $customerUser->createToken(CustomerUser::ACCESS_TOKEN_NAME)->plainTextToken
         ], Response::HTTP_OK);
-
-        //todo redirect na login page na FE
     }
 }
