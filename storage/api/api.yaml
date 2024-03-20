@@ -11,6 +11,36 @@ servers:
 #security:
 #  - bearerAuth: []
 paths:
+  /api/v1/payment/intent:
+    post:
+      summary: Create payment intent
+      tags:
+        - private
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ amount, currency, description, customer_email ]
+              properties:
+                currency:
+                  type: string
+                amount:
+                  type: integer
+                description:
+                  type: string
+                customer_email:
+                  type: string
+                  format: email
+      responses:
+        201:
+          description: Comment was successfully created
+        401:
+          description: Unauthorised access
+
   /api/v1/comments:
     post:
       summary: Create comment

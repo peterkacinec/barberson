@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\CategoryListController;
 use App\Http\Controllers\Api\V1\CommentListController;
 use App\Http\Controllers\Api\V1\CustomerProfileController;
 use App\Http\Controllers\Api\V1\EditCustomerProfileController;
+use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\SaveCommentController;
 use App\Http\Controllers\Api\V1\CustomerListController;
 use App\Http\Controllers\Api\V1\OrderDetailController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\Api\V1\ProviderListController;
 use App\Http\Controllers\Api\V1\ServiceListController;
 use App\Http\Controllers\Api\V1\SaveServiceController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Cashier\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +41,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::post('/services', SaveServiceController::class)->name('service.save');
         Route::get('/customers/profile', CustomerProfileController::class)->name('customer.profile');
         Route::put('/customers/profile', EditCustomerProfileController::class)->name('customer.profile.edit');
-        Route::get('/checkout', PaymentController::class)->name('checkout.createSession');
+//        Route::get('/checkout', PaymentController::class)->name('checkout.createSession');
+        Route::post('/payment/intent', [PaymentController::class, 'createPaymentIntent']);
+//        Route::post('/webhook/stripe', [PaymentController::class, 'handleWebhook']);
     });
 
     Route::get('/categories', CategoryListController::class)->name('category.list');
@@ -56,3 +58,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
 Route::get('/auth/logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 Route::post('/auth/register', RegistrationController::class)->name('user.register');
 Route::post('/auth/login', LoginController::class)->name('user.login');
+
+
+Route::post('stripe/webhook', '\App\Http\Controllers\Api\V1\StripeWebhookController@handleWebhook');

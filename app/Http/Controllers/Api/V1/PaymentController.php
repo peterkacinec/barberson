@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Services\PaymentService;
+use App\Common\Application\PaymentGatewayInterface;
+use App\Http\Requests\PaymentRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,21 +13,26 @@ use Illuminate\Routing\Controller;
 
 class PaymentController extends Controller
 {
-    public function __construct(private PaymentService $paymentService)
+    public function __construct(private PaymentGatewayInterface $paymentService)
     {
     }
 
-    public function __invoke(Request $request): JsonResponse
+    public function createPaymentIntent(PaymentRequest $request): JsonResponse
     {
-        $amount = $request->input('amount');
-        $token = $request->input('token');
+        $data = $request->validated();
 
         try {
-            $this->paymentService->__invoke($amount, $token);
-        } catch(Exception) {
-            return new JsonResponse(false, 404);
-        }
+            $amount = $request->input('amount');
+            $currency = $request->input('currency');
+            $description = $request->input('description');
+            $customerEmail = $request->input('customer_email');
 
-        return new JsonResponse(true);
+            $paymentIntent = $this->paymentService->createPaymentIntent($amount, $currency, $description, $customerEmail);
+
+            return response()->json(['client_secret' => $paymentIntent['clientSecret']]);
+        } catch (Exception $exception) {
+            dd($exception);
+            throw new Exception(['error' => $exception->getMessage()]);
+        }
     }
 }
