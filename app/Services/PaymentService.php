@@ -34,8 +34,8 @@ class PaymentService implements PaymentGatewayInterface
             'customer' => $customerUserId,
             'line_items' => $this->buildLineItems($requestData['paymentItems']),
             'mode' => 'payment',
-            'success_url' => config('app.fe_hostname') . '/dakujeme-za-objednavku',
-            'cancel_url' => config('app.fe_hostname') . '/cancel_url_todo',
+            'success_url' => config('app.frontend_hostname') . '/dakujeme-za-objednavku',
+            'cancel_url' => config('app.frontend_hostname') . '/cancel_url_todo',
             'invoice_creation' => [
                 'enabled' => true
             ],
@@ -67,7 +67,7 @@ class PaymentService implements PaymentGatewayInterface
     private function mapUserToStripeUser(CustomerUser $customerUser): array
     {
         return [
-            'name' => $customerUser->fullname,
+            'name' => $customerUser->fullName,
             'email' => $customerUser->email,
             'phone' => $customerUser->phone,
             'address' => null, //todo
