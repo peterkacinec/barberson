@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Common\Domain\ValueObject\FullName;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,7 +28,7 @@ class CustomerUser extends Authenticatable
         'first_name',
         'surname',
         'birthdate',
-        'phone', //todo treba?
+        'phone',
         'email',
         'language',
         'password',
@@ -48,9 +50,19 @@ class CustomerUser extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime', //todo, funguje toto?
         'password' => 'hashed',
     ];
+
+    protected function fullname(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => FullName::create(
+                $attributes['first_name'],
+                $attributes['surname'],
+            ),
+        );
+    }
 
     public function customer()
     {

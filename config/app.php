@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
+    'fe_hostname' => env('FRONTEND_HOSTNAME'),
 
     /*
     |--------------------------------------------------------------------------

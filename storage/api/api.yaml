@@ -24,20 +24,33 @@ paths:
           application/json:
             schema:
               type: object
-              required: [ amount, currency, description, customer_email ]
+              required: [ paymentItems ]
               properties:
-                currency:
-                  type: string
-                amount:
-                  type: integer
-                description:
-                  type: string
-                customer_email:
-                  type: string
-                  format: email
+                paymentItems:
+                  type: array
+                  items:
+                    type: object
+                    required: [ name, price ]
+                    properties:
+                      name:
+                        type: string
+                      price:
+                        type: number
+                        format: float
+                      currency:
+                        type: string
+                        enum: [ EUR ]
       responses:
-        201:
-          description: Comment was successfully created
+        200:
+          description: Checkout session successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ transactionalId ]
+                properties:
+                  transactionalId:
+                    type: string
         401:
           description: Unauthorised access
 

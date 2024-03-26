@@ -19,10 +19,10 @@ class PaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'items' => 'required|array',
-            'items.*.name' => 'required',
-            'items.*.price' => 'required|numeric',
-            'items.*.currency' => 'required|in:EUR,todo', //todo doplnit meny
+            'paymentItems' => 'required|array',
+            'paymentItems.*.name' => 'required',
+            'paymentItems.*.price' => 'required|numeric',
+            'paymentItems.*.currency' => 'required|in:EUR,todo', //todo doplnit meny
         ];
     }
 }

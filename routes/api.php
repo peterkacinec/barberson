@@ -41,7 +41,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::post('/services', SaveServiceController::class)->name('service.save');
         Route::get('/customers/profile', CustomerProfileController::class)->name('customer.profile');
         Route::put('/customers/profile', EditCustomerProfileController::class)->name('customer.profile.edit');
-//        Route::get('/checkout', PaymentController::class)->name('checkout.createSession');
+//        Route::post('/checkout', PaymentController::class)->name('checkout.createSession');
         Route::post('/payment/intent', [PaymentController::class, 'createPaymentIntent']);
 //        Route::post('/webhook/stripe', [PaymentController::class, 'handleWebhook']);
     });
@@ -60,4 +60,4 @@ Route::post('/auth/register', RegistrationController::class)->name('user.registe
 Route::post('/auth/login', LoginController::class)->name('user.login');
 
 
-Route::post('stripe/webhook', '\App\Http\Controllers\Api\V1\StripeWebhookController@handleWebhook');
+//Route::post('stripe/webhook', '\App\Http\Controllers\Api\V1\StripeWebhookController@handleWebhook');
