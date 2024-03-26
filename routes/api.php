@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\CategoryListController;
 use App\Http\Controllers\Api\V1\CommentListController;
 use App\Http\Controllers\Api\V1\CustomerProfileController;
 use App\Http\Controllers\Api\V1\EditCustomerProfileController;
+use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\SaveCommentController;
 use App\Http\Controllers\Api\V1\CustomerListController;
 use App\Http\Controllers\Api\V1\OrderDetailController;
@@ -45,6 +46,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::post('/services', SaveServiceController::class)->name('service.save');
         Route::get('/customers/profile', CustomerProfileController::class)->name('customer.profile');
         Route::put('/customers/profile', EditCustomerProfileController::class)->name('customer.profile.edit');
+        Route::post('/payment/intent', [PaymentController::class, 'createPaymentIntent']);
     });
 
     Route::get('/categories', CategoryListController::class)->name('category.list');

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\NewAccessToken;
@@ -20,7 +21,7 @@ class CustomerUser extends Authenticatable implements MustVerifyEmail
 {
     public const ACCESS_TOKEN_NAME = "CUSTOMER_USER_TOKEN";
 
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +32,7 @@ class CustomerUser extends Authenticatable implements MustVerifyEmail
         'first_name',
         'surname',
         'birthdate',
-        'phone', //todo treba?
+        'phone',
         'email',
         'language',
         'password',
@@ -53,7 +54,7 @@ class CustomerUser extends Authenticatable implements MustVerifyEmail
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime', //todo, funguje toto?
         'password' => 'hashed',
     ];
 
